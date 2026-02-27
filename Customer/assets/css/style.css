@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.se-header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.se-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.se-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.se-nav-item {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+}
+
+.se-nav-item.is-active {
+  color: #ff4d6d;
+  font-weight: bold;
+}
+
+.se-main {
+  padding: 40px 0;
+  min-height: 80vh;
+}

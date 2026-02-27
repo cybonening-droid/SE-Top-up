@@ -1,0 +1,133 @@
+/* ============================= */
+/* SE ADMIN THEME COLOR */
+/* Main Color: #0171F9 */
+/* ============================= */
+
+:root {
+  --main-blue: #0171F9;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: var(--main-blue) !important;
+}
+
+/* Primary Buttons */
+.btn-primary {
+  background-color: var(--main-blue) !important;
+  border-color: var(--main-blue) !important;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* Badge สีหลัก */
+.badge-primary {
+  background-color: var(--main-blue) !important;
+}
+
+/* Dropdown focus */
+.form-control:focus {
+  border-color: var(--main-blue) !important;
+  box-shadow: 0 0 0 0.2rem rgba(1, 113, 249, 0.25) !important;
+}
+
+/* Active Menu */
+.sidebar .nav-item.active {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+/* Links */
+a {
+  color: var(--main-blue);
+}
+
+a:hover {
+  color: var(--main-blue);
+}
+.sidebar-brand-icon img {
+  max-height: 45px;
+  object-fit: contain;
+}
+
+/* Logout */
+
+/* Logout Modal Style */
+.logout-modal {
+  border-radius: 12px;
+  padding: 25px;
+}
+
+/* Title Left + Divider */
+.logout-header {
+  border: none;
+  padding-bottom: 10px;
+  display: block !important;
+  width: 100% !important;
+}
+
+.logout-title {
+  font-size: 34px;
+  font-weight: 700;
+  text-align: left !important;
+  margin: 0 !important;
+  width: 100%;
+  color: #6b6b6b;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+}
+
+/* Body Text */
+.logout-body {
+  text-align: left;
+  font-size: 18px;
+  color: #777;
+  padding-top: 15px;
+}
+
+/* Footer Buttons */
+.logout-footer {
+  border: none;
+  display: flex;
+  justify-content: space-between !important;
+  width: 100%;
+  padding-top: 25px;
+}
+
+/* Same Button Size */
+.logout-btn {
+  width: 180px;
+  height: 55px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cancel Red */
+.cancel-btn {
+  background: #f44336;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #d32f2f;
+  color: white;
+}
+
+/* OK Green */
+.ok-btn {
+  background: #20c997;
+  color: white;
+  text-decoration: none;
+}
+
+.ok-btn:hover {
+  background: #17a673;
+  color: white;
+}
+

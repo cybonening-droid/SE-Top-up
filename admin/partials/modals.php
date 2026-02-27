@@ -1,0 +1,256 @@
+<!-- ================= ORDER MODAL ================= -->
+
+<!-- Update Order Status Modal -->
+<div class="modal fade" id="statusModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+
+      <h4 class="font-weight-bold mb-4">
+        Order ID : <span id="modalOrderId"></span>
+      </h4>
+
+      <form method="POST" action="update-order.php">
+
+        <input type="hidden" name="id" id="modalInputId">
+
+        <h6 class="mb-3">Update Status</h6>
+
+        <div class="form-group">
+
+          <div class="custom-control custom-radio mb-2">
+            <input type="radio" id="modalCancel"
+                   name="status"
+                   value="cancel"
+                   class="custom-control-input">
+            <label class="custom-control-label text-danger" for="modalCancel">
+              Cancel (ยกเลิก)
+            </label>
+          </div>
+
+          <div class="custom-control custom-radio mb-2">
+            <input type="radio" id="modalSuccess"
+                   name="status"
+                   value="success"
+                   class="custom-control-input">
+            <label class="custom-control-label text-success" for="modalSuccess">
+              Success (สำเร็จ)
+            </label>
+          </div>
+
+          <div class="custom-control custom-radio mb-4">
+            <input type="radio" id="modalPending"
+                   name="status"
+                   value="pending"
+                   class="custom-control-input">
+            <label class="custom-control-label text-warning" for="modalPending">
+              Pending (กำลังดำเนินการ)
+            </label>
+          </div>
+
+        </div>
+
+        <div class="text-right">
+          <button type="button" class="btn btn-danger mr-2" data-dismiss="modal">
+            Cancel
+          </button>
+
+          <button type="submit" class="btn btn-success">
+            OK
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================= GAME MODAL ================= -->
+<!-- ===== Edit ===== -->
+<div class="modal fade" id="editGameModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+
+      <form action="edit-game.php"
+            method="POST"
+            enctype="multipart/form-data">
+
+        <input type="hidden" name="id" id="editGameId">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Game</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+        </div>
+
+        <div class="modal-body">
+
+          <label>Game Name</label>
+          <input class="form-control mb-3"
+                 name="name"
+                 id="editGameName"
+                 required>
+
+          <label>Status</label>
+          <select name="status"
+                  id="editGameStatus"
+                  class="form-control mb-3">
+            <option value="ON">ON</option>
+            <option value="OFF">OFF</option>
+          </select>
+
+          <label>Change Image</label>
+          <input type="file"
+                 name="image"
+                 class="form-control">
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal">
+            Cancel
+          </button>
+
+          <button type="submit"
+                  class="btn btn-primary">
+            Save
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+<!-- ===== Delete ===== -->
+<div class="modal fade" id="deleteGameModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+
+      <form action="delete-game.php" method="POST">
+
+        <input type="hidden" name="id" id="deleteGameId">
+
+        <div class="modal-header">
+          <h5 class="modal-title text-danger">Delete Game</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+        </div>
+
+        <div class="modal-body">
+          แน่ใจนะว่าจะลบเกมนี้?
+          <h5 class="mt-3 font-weight-bold"
+              id="deleteGameName"></h5>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal">
+            Cancel
+          </button>
+
+          <button type="submit"
+                  class="btn btn-danger">
+            Delete
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+<!-- ===== Add ===== -->
+<div class="modal fade" id="addGameModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+
+      <form action="add-game.php"
+            method="POST"
+            enctype="multipart/form-data">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Game</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+        </div>
+
+        <div class="modal-body">
+
+          <label>Game Name</label>
+          <input type="text"
+                 name="name"
+                 class="form-control mb-3"
+                 required>
+
+          <label>Status</label>
+          <select name="status"
+                  class="form-control mb-3">
+            <option value="ON">ON</option>
+            <option value="OFF">OFF</option>
+          </select>
+
+          <label>Game Image</label>
+          <input type="file"
+                 name="image"
+                 class="form-control"
+                 required>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal">
+            Cancel
+          </button>
+
+          <button type="submit"
+                  class="btn btn-primary">
+            Save Game
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================= Logout Modal (Single) ================= -->
+<div class="modal fade" id="logoutModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content logout-modal">
+
+      <div class="modal-header logout-header">
+        <h2 class="logout-title">Confirm Logout</h2>
+      </div>
+
+      <div class="modal-body logout-body">
+        <p>Are you sure you want to log out?</p>
+      </div>
+
+      <div class="modal-footer logout-footer">
+
+        <button type="button"
+                class="btn logout-btn cancel-btn"
+                data-dismiss="modal">
+          Cancel
+        </button>
+
+        <a href="logout.php"
+           class="btn logout-btn ok-btn">
+          OK
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</div>
