@@ -3,6 +3,13 @@
 
 <!-- Chart.js -->
 <script src="js/chart/Chart.min.js"></script>
+
+<script>
+const revenueData = <?= json_encode($revenueData) ?>;
+const gameRevenue = <?= json_encode($gameRevenue) ?>;
+</script>
+
+<!-- Dashboard Chart -->
 <script src="js/dashboard.js"></script>
 
 <!-- jQuery -->

@@ -1,6 +1,97 @@
 <?php 
 require_once "auth.php";
-$activePage = "dashboard"; ?>
+require_once "../config/db.php";
+$activePage = "dashboard"; 
+/* Orders Today */
+$qToday = $conn->query("
+SELECT COUNT(*) as total 
+FROM orders 
+WHERE DATE(created_at) = CURDATE()
+");
+$ordersToday = $qToday->fetch_assoc()['total'];
+
+/* Pending Orders */
+$qPending = $conn->query("
+SELECT COUNT(*) as total 
+FROM orders 
+WHERE status='PENDING'
+");
+$pendingOrders = $qPending->fetch_assoc()['total'];
+
+/* Total Revenue */
+$qRevenue = $conn->query("
+SELECT SUM(packages.price) as total
+FROM orders
+JOIN packages ON orders.package_id = packages.id
+WHERE orders.status='SUCCESS'
+");
+$totalRevenue = $qRevenue->fetch_assoc()['total'] ?? 0;
+
+/* Total Users */
+$qUsers = $conn->query("
+SELECT COUNT(*) as total 
+FROM users
+");
+$totalUsers = $qUsers->fetch_assoc()['total'];
+
+$latestOrders = $conn->query("
+SELECT 
+orders.id,
+users.username,
+packages.name AS package_name,
+packages.price,
+games.name AS game_name,
+orders.status,
+orders.created_at
+FROM orders
+JOIN users ON orders.user_id = users.id
+JOIN packages ON orders.package_id = packages.id
+JOIN games ON packages.game_id = games.id
+ORDER BY orders.created_at DESC
+LIMIT 5
+");
+/* ===== Revenue Last 7 Days ===== */
+
+$revenueData = [];
+
+$query = $conn->query("
+SELECT 
+DATE(orders.created_at) as day,
+SUM(packages.price) as revenue
+FROM orders
+JOIN packages ON orders.package_id = packages.id
+WHERE orders.status='SUCCESS'
+AND orders.created_at >= CURDATE() - INTERVAL 7 DAY
+GROUP BY DATE(orders.created_at)
+ORDER BY DATE(orders.created_at)
+");
+
+if($query){
+    while($row = $query->fetch_assoc()){
+        $revenueData[] = $row;
+    }
+}
+
+/* ===== Top Revenue Game ===== */
+
+$gameRevenue = [];
+
+$query = $conn->query("
+SELECT 
+games.name,
+SUM(packages.price) as revenue
+FROM orders
+JOIN packages ON orders.package_id = packages.id
+JOIN games ON packages.game_id = games.id
+WHERE orders.status='SUCCESS'
+GROUP BY games.id
+");
+
+while($row = $query->fetch_assoc()){
+    $gameRevenue[] = $row;
+}
+?>
+
   <?php include "partials/header.php"; ?>
   <?php include("partials/sidebar.php"); ?>
 
@@ -23,7 +114,7 @@ $activePage = "dashboard"; ?>
           <!-- Orders Today -->
           <div class="col-md-3 mb-4">
             <div class="card shadow-sm p-3 text-center">
-              <h2 class="font-weight-bold">12</h2>
+              <h2 class="font-weight-bold"><?= $ordersToday ?></h2>
               <p class="text-muted mb-0">Orders Today</p>
             </div>
           </div>
@@ -31,7 +122,7 @@ $activePage = "dashboard"; ?>
           <!-- Pending Orders -->
           <div class="col-md-3 mb-4">
             <div class="card shadow-sm p-3 text-center">
-              <h2 class="font-weight-bold">5</h2>
+              <h2 class="font-weight-bold"><?= $pendingOrders ?></h2>
               <p class="text-muted mb-0">Pending Orders</p>
             </div>
           </div>
@@ -39,7 +130,7 @@ $activePage = "dashboard"; ?>
           <!-- Total Revenue -->
           <div class="col-md-3 mb-4">
             <div class="card shadow-sm p-3 text-center">
-              <h2 class="font-weight-bold">฿6767</h2>
+              <h2 class="font-weight-bold">฿<?= number_format($totalRevenue,2) ?></h2>
               <p class="text-muted mb-0">Total Revenue</p>
             </div>
           </div>
@@ -47,7 +138,7 @@ $activePage = "dashboard"; ?>
           <!-- Total Users -->
           <div class="col-md-3 mb-4">
             <div class="card shadow-sm p-3 text-center">
-              <h2 class="font-weight-bold">102</h2>
+              <h2 class="font-weight-bold"><?= $totalUsers ?></h2>
               <p class="text-muted mb-0">Total Users</p>
             </div>
           </div>
@@ -87,96 +178,89 @@ $activePage = "dashboard"; ?>
         <!-- Latest Order Table -->
         <div class="card shadow p-4 mt-3">
 
-          <h4 class="font-weight-bold mb-4">Latest Order</h4>
+          <div class="d-flex justify-content-between align-items-center mb-4">
+              <h4 class="font-weight-bold mb-0">Latest Orders</h4>
 
-          <table class="table text-center">
-            <thead>
-              <tr>
-                <th>order ID</th>
-                <th>User</th>
-                <th>Game</th>
-                <th>Package</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th></th>
-              </tr>
+              <a href="orders.php" class="btn btn-sm btn-outline-primary">
+                  View All
+              </a>
+          </div>
+
+          <div class="table-responsive">
+
+            <table class="table text-center align-middle">
+
+            <thead class="thead-light">
+
+            <tr>
+            <th>Order</th>
+            <th>User</th>
+            <th>Game</th>
+            <th>Package</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th></th>
+            </tr>
+
             </thead>
 
             <tbody>
-              <tr>
-                <td>#1234</td>
-                <td>Tool</td>
-                <td>Valorant</td>
-                <td>1000 VP</td>
-                <td>245</td>
-                <td>
-                  <span class="badge badge-warning px-4 py-2">
-                    รอดำเนินการ
-                  </span>
-                </td>
-                <td>
-                  <button class="btn btn-primary btn-sm px-4">
-                    View
-                  </button>
-                </td>
-              </tr>
+
+              <?php while($row = $latestOrders->fetch_assoc()): ?>
+
+              <?php
+              $statusClass = [
+              'pending' => 'warning',
+              'success' => 'success',
+              'cancel' => 'danger'
+              ];
+
+              $badgeColor = $statusClass[strtolower($row['status'])] ?? 'secondary';
+              ?>
 
               <tr>
-                <td>#1235</td>
-                <td>Team</td>
-                <td>Free Fire</td>
-                <td>700 Diamonds</td>
-                <td>199</td>
-                <td>
-                  <span class="badge badge-danger px-4 py-2">
-                    ยกเลิก
-                  </span>
-                </td>
-                <td>
-                  <button class="btn btn-primary btn-sm px-4">
-                    View
-                  </button>
-                </td>
+
+              <td>
+              <a href="orders.php?id=<?= $row['id'] ?>" class="font-weight-bold">
+              #<?= $row['id'] ?>
+              </a>
+              </td>
+
+              <td>
+              <?= htmlspecialchars($row['username']) ?>
+              </td>
+
+              <td>
+              <?= htmlspecialchars($row['game_name']) ?>
+              </td>
+
+              <td>
+              <?= htmlspecialchars($row['package_name']) ?>
+              </td>
+
+              <td>
+              ฿<?= number_format($row['price'],2) ?>
+              </td>
+
+              <td>
+              <?= date("d M Y H:i", strtotime($row['created_at'])) ?>
+              </td>
+
+              <td>
+              <span class="badge badge-<?= $badgeColor ?> px-3 py-2">
+              <?= $row['status'] ?>
+              </span>
+              </td>
               </tr>
 
-              <tr>
-                <td>#1236</td>
-                <td>M</td>
-                <td>RoV</td>
-                <td>300 Coupon</td>
-                <td>250</td>
-                <td>
-                  <span class="badge badge-success px-4 py-2">
-                    สำเร็จ
-                  </span>
-                </td>
-                <td>
-                  <button class="btn btn-primary btn-sm px-4">
-                    View
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>#1237</td>
-                <td>Soup</td>
-                <td>Valorant</td>
-                <td>500 VP</td>
-                <td>120</td>
-                <td>
-                  <span class="badge badge-success px-4 py-2">
-                    สำเร็จ
-                  </span>
-                </td>
-                <td>
-                  <button class="btn btn-primary btn-sm px-4">
-                    View
-                  </button>
-                </td>
-              </tr>
+              <?php endwhile; ?>
 
             </tbody>
+
           </table>
+
+          </div>
 
         </div>
 
