@@ -8,18 +8,20 @@ $category = $_GET['category'] ?? '';
 $sort     = $_GET['sort'] ?? 'newest';
 
 $sql = "
-    SELECT 
-        orders.id,
-        orders.customer_name,
-        orders.status,
-        orders.created_at,
-        packages.name AS package_name,
-        packages.price,
-        games.name AS game_name
-    FROM orders
-    JOIN packages ON orders.package_id = packages.id
-    JOIN games ON packages.game_id = games.id
-    WHERE 1=1
+SELECT 
+    orders.id,
+    users.username AS customer_name,
+    orders.game_uid,
+    orders.status,
+    orders.created_at,
+    packages.name AS package_name,
+    packages.price,
+    games.name AS game_name
+FROM orders
+JOIN users ON orders.user_id = users.id
+JOIN packages ON orders.package_id = packages.id
+JOIN games ON packages.game_id = games.id
+WHERE 1=1
 ";
 
 /* ===== Search ===== */
@@ -27,7 +29,7 @@ if (!empty($search)) {
     $search = $conn->real_escape_string($search);
     $sql .= " AND (
         orders.id LIKE '%$search%'
-        OR orders.customer_name LIKE '%$search%'
+        OR users.username LIKE '%$search%'
         OR packages.name LIKE '%$search%'
         OR games.name LIKE '%$search%'
     )";
@@ -137,13 +139,15 @@ $result = $conn->query($sql);
 
               <thead>
                 <tr>
-                  <th>order ID</th>
-                  <th>User</th>
-                  <th>ประเภทสินค้า</th>
-                  <th>รายละเอียดสินค้า</th>
-                  <th>ราคา</th>
-                  <th>Status</th>
-                  <th></th>
+                    <th>Order ID</th>
+                    <th>User</th>
+                    <th>Game</th>
+                    <th>Package</th>
+                    <th>UID</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th></th>
                 </tr>
               </thead>
 
@@ -157,15 +161,34 @@ $result = $conn->query($sql);
                                 'success' => 'success',
                                 'cancel'  => 'danger'
                             ];
-                            $badgeColor = $statusClass[$row['status']] ?? 'secondary';
+
+                            $badgeColor = $statusClass[strtolower($row['status'])] ?? 'secondary';
                             ?>
 
                             <tr>
                                 <td>#<?= $row['id'] ?></td>
-                                <td><?= htmlspecialchars($row['customer_name']) ?></td>
-                                <td><?= htmlspecialchars($row['game_name']) ?></td>
-                                <td><?= htmlspecialchars($row['package_name']) ?></td>
+
+                                <td>
+                                    <?= htmlspecialchars($row['customer_name']) ?>
+                                </td>
+
+                                <td>
+                                    <?= htmlspecialchars($row['game_name']) ?>
+                                </td>
+
+                                <td>
+                                    <?= htmlspecialchars($row['package_name']) ?>
+                                </td>
+
+                                <td>
+                                    <?= htmlspecialchars($row['game_uid']) ?>
+                                </td>
+
                                 <td><?= number_format($row['price'], 2) ?></td>
+
+                                <td>
+                                <?= date("d M Y H:i", strtotime($row['created_at'])) ?>
+                                </td>
 
                                 <td>
                                     <span class="badge badge-<?= $badgeColor ?> px-3 py-2 text-capitalize">
