@@ -149,7 +149,7 @@
 
         <div class="modal-footer">
           <button type="button"
-                  class="btn btn-danger"
+                  class="btn btn-primary"
                   data-dismiss="modal">
             Cancel
           </button>
@@ -250,6 +250,169 @@
         </a>
 
       </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Add Package Modal -->
+<div class="modal fade" id="addPackageModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <form action="add_package.php" method="POST">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Add Package</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+        </div>
+
+        <div class="modal-body">
+
+          <!-- Game -->
+          <div class="form-group">
+            <label>Game</label>
+            <select name="game_id" class="form-control" required>
+
+              <?php
+              $games = $conn->query("SELECT * FROM games");
+              while($g = $games->fetch_assoc()):
+              ?>
+
+              <option value="<?= $g['id'] ?>">
+                <?= $g['name'] ?>
+              </option>
+
+              <?php endwhile; ?>
+
+            </select>
+          </div>
+
+          <!-- Package Name -->
+          <div class="form-group">
+            <label>Package Name</label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+
+          <!-- Price -->
+          <div class="form-group">
+            <label>Price</label>
+            <input type="number" step="0.01" name="price" class="form-control" required>
+          </div>
+
+          <!-- Status -->
+          <div class="form-group">
+            <label>Status</label>
+            <select name="status" class="form-control">
+              <option value="ON">ON</option>
+              <option value="OFF">OFF</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">
+            Add Package
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Edit Package Modal -->
+<div class="modal fade" id="editPackageModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <form action="update_package.php" method="POST">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Package</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+        </div>
+
+        <div class="modal-body">
+
+          <input type="hidden" name="id" id="editPackageId">
+
+          <!-- Game -->
+          <div class="form-group">
+            <label>Game</label>
+            <select name="game_id" class="form-control" id="editPackageGame">
+
+              <?php
+              $games = $conn->query("SELECT * FROM games");
+              while($g = $games->fetch_assoc()):
+              ?>
+
+              <option value="<?= $g['id'] ?>">
+                <?= $g['name'] ?>
+              </option>
+
+              <?php endwhile; ?>
+
+            </select>
+          </div>
+
+          <!-- Package Name -->
+          <div class="form-group">
+            <label>Package Name</label>
+            <input type="text"
+                   name="name"
+                   class="form-control"
+                   id="editPackageName">
+          </div>
+
+          <!-- Price -->
+          <div class="form-group">
+            <label>Price</label>
+            <input type="number"
+                   step="0.01"
+                   name="price"
+                   class="form-control"
+                   id="editPackagePrice">
+          </div>
+
+          <!-- Status -->
+          <div class="form-group">
+            <label>Status</label>
+            <select name="status"
+                    class="form-control"
+                    id="editPackageStatus">
+
+              <option value="ON">ON</option>
+              <option value="OFF">OFF</option>
+
+            </select>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <!-- Delete -->
+          <a href="#" id="deletePackageBtn"
+             class="btn btn-danger">
+             Delete
+          </a>
+
+          <!-- Save -->
+          <button type="submit"
+                  class="btn btn-primary">
+              Save Changes
+          </button>
+
+        </div>
+
+      </form>
 
     </div>
   </div>
