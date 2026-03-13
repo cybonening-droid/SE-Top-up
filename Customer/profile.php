@@ -3,11 +3,11 @@ include "partials/header.php";
 
 /* mock data (เดี๋ยวค่อยดึง DB) */
 $user = [
-  "first_name" => "John",
-  "last_name" => "Doe",
-  "email" => "john@email.com",
-  "phone" => "0812345678",
-  "username" => "SE_Customer123",
+  "first_name" => "Punn",
+  "last_name" => "InwzA",
+  "email" => "Panyawatfaktim@email.com",
+  "phone" => "0616742970",
+  "username" => "PunnBigD_ata",
   "role" => "Customer",
   "id" => "s123456789"
 ];
@@ -32,7 +32,7 @@ $user = [
         </div>
 
         <h4 style="font-weight:900;">
-            <?= $user['first_name']." ".$user['last_name'] ?>
+            <?= $user['username'] ?>
         </h4>
 
         <p style="color:#666;">

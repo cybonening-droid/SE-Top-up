@@ -75,7 +75,7 @@ $error = "Username already exists";
 ?>
 
 <?php include "partials/header.php"; ?>
-<section class="se-section se-login-bg">
+
 <section class="se-section">
     <div class="se-container">
 
