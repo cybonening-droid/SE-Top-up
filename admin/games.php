@@ -133,27 +133,3 @@ $result = $conn->query($sql);
 <!-- ============== End Wrapper ============== -->
 
 <?php include "partials/footer.php"; ?>
-<script>
-$(function () {
-
-    // EDIT
-    $('#editGameModal').on('show.bs.modal', function (event) {
-
-        var button = $(event.relatedTarget);
-
-        $('#editGameId').val(button.data('id'));
-        $('#editGameName').val(button.data('name'));
-        $('#editGameStatus').val(button.data('status'));
-    });
-
-    // DELETE
-    $('#deleteGameModal').on('show.bs.modal', function (event) {
-
-        var button = $(event.relatedTarget);
-
-        $('#deleteGameId').val(button.data('id'));
-        $('#deleteGameName').text(button.data('name'));
-    });
-
-});
-</script>

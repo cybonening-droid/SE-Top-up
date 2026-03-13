@@ -20,7 +20,7 @@ const gameRevenue = <?= json_encode($gameRevenue) ?>;
 
 <!-- SB Admin -->
 <script src="js/sb-admin-2.min.js"></script>
-
 <?php include "partials/modals.php"; ?>
+<script src="js/admin.js"></script>
 </body>
 </html>

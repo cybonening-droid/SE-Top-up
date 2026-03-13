@@ -225,22 +225,3 @@ $result = $conn->query($sql);
     </div>
 
 <?php include "partials/footer.php"; ?>
-<script>
-$(function () {
-
-    $('#statusModal').on('show.bs.modal', function (event) {
-
-        var button = $(event.relatedTarget);
-
-        var orderId = button.data('id');
-        var status = button.data('status');
-
-        $('#modalOrderId').text('#' + orderId);
-        $('#modalInputId').val(orderId);
-
-        $('input[name="status"]').prop('checked', false);
-        $('input[name="status"][value="' + status + '"]').prop('checked', true);
-    });
-
-});
-</script>

@@ -146,31 +146,3 @@ $result = $conn->query($sql);
       </div>
     </div>
 <?php include "partials/footer.php"; ?>
-<script>
-$(function () {
-
-  $('#editPackageModal').on('show.bs.modal', function (event) {
-
-    var button = $(event.relatedTarget);
-
-    var id     = button.data('id');
-    var name   = button.data('name');
-    var price  = button.data('price');
-    var status = button.data('status');
-    var game   = button.data('game');
-
-    $('#editPackageId').val(id);
-    $('#editPackageName').val(name);
-    $('#editPackagePrice').val(price);
-    $('#editPackageStatus').val(status);
-    $('#editPackageGame').val(game);
-
-    $('#deletePackageBtn').attr(
-      'href',
-      'delete_package.php?id=' + id
-    );
-
-  });
-
-});
-</script>
