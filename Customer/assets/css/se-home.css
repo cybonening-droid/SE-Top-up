@@ -386,9 +386,32 @@ body{ font-family:"Poppins", sans-serif; }
   background:#16a34a;
   transform:translateY(-2px);
 }
+.se-btn-red{
+  background:#ee626b;
+  border:none;
+  color:#fff;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+  transition:.2s;
+}
+
+.se-btn-red:hover{
+  background:#d94f57;
+  transform:translateY(-2px);
+}
 
 .se-btn-gray{
   background:#999;
+  border:none;
+  color:#fff;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+  transition:.2s ease;
+}
+.se-btn-black{
+  background:#000000;
   border:none;
   color:#fff;
   padding:12px;
@@ -541,4 +564,44 @@ body{ font-family:"Poppins", sans-serif; }
   padding:14px;
   font-size:16px;
   border-radius:12px;
+}
+.se-btn-primary{
+background:#3a78b2;
+color:#fff;
+border:none;
+padding:12px;
+font-weight:700;
+border-radius:8px;
+}
+
+.se-btn-primary:hover{
+background:#2f6294;
+}
+.se-login-bg{
+  position:relative;
+  overflow:hidden;
+}
+
+.se-login-bg::before{
+  content:"";
+  position:absolute;
+
+  background-image:url("../image/LogoBlue.png");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:500px;
+
+  opacity:0.05;
+
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+
+  z-index:0;
+}
+
+.se-login-bg .se-container{
+  position:relative;
+  z-index:1;
 }

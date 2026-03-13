@@ -9,8 +9,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SE Top-Up</title>
-
+  <title>SE Topup - ร้านเติมเกมออนไลน์ ROV PUBG Free Fire Genshin Impact ราคาถูก เติมไว ปลอดภัย</title>
+  <link rel="icon" type="image/png" href="/admin/assets/images/LogoBlue.png">
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -52,7 +52,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <?php if(isset($_SESSION['user_id'])): ?>
           <a class="se-nav-item" href="logout.php">Logout</a>
         <?php else: ?>
-          <a class="se-nav-item se-nav-signin" href="signin.php">SIGN IN</a>
+          <a class="se-nav-item se-nav-signin" href="login.php">SIGN IN</a>
         <?php endif; ?>
       </nav>
     </div>
