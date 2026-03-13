@@ -72,7 +72,17 @@ $error = "Username already exists";
 }
 
 }
+
 ?>
+
+<?php if(isset($_SESSION['error'])): ?>
+
+<div class="alert alert-danger">
+<?= $_SESSION['error'] ?>
+</div>
+
+<?php unset($_SESSION['error']); ?>
+<?php endif; ?>
 
 <?php include "partials/header.php"; ?>
 
@@ -95,29 +105,29 @@ $error = "Username already exists";
                     Enter username and password to log on:
                 </p>
 
-                <form method="POST">
+                <form method="POST" action="login_process.php">
 
-                <input
-                type="text"
-                name="username"
-                class="form-control mb-3"
-                placeholder="Username"
-                required
-                >
+                    <input
+                    type="text"
+                    name="username"
+                    class="form-control mb-3"
+                    placeholder="Username"
+                    required
+                    >
 
-                <input
-                type="password"
-                name="password"
-                class="form-control mb-3"
-                placeholder="Password"
-                required
-                >
+                    <input
+                    type="password"
+                    name="password"
+                    class="form-control mb-3"
+                    placeholder="Password"
+                    required
+                    >
 
-                <button
-                name="login"
-                class="se-btn-green w-100">
-                Sign in
-                </button>
+                    <button
+                    name="login"
+                    class="se-btn-green w-100">
+                    Sign in
+                    </button>
 
                 </form>
 

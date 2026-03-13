@@ -1,5 +1,5 @@
+<?php require_once "auth.php"; ?>
 <?php include "partials/header.php"; ?>
-
 <!-- PAGE HERO -->
 <section class="se-page-hero">
   <div class="se-page-hero-inner">
