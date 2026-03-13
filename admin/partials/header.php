@@ -7,9 +7,10 @@ if (!isset($activePage)) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" type="image/png" href="/admin/assets/images/LogoBlue.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SE Admin</title>
+  <title>SE Topup Admin</title>
 
   <!-- SB Admin 2 CSS -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">

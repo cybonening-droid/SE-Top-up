@@ -33,7 +33,9 @@
     <li class="nav-item <?= ($activePage=="games") ? "active" : "" ?>">
       <a class="nav-link" href="games.php">Games</a>
     </li>
-
+    <li class="nav-item <?= ($activePage=="transactions") ? "active" : "" ?>">
+      <a class="nav-link" href="transactions.php">Transactions</a>
+    </li>
     <!-- Logout Trigger -->
     <li class="nav-item">
       <a class="nav-link"
@@ -45,4 +47,5 @@
     </li>
 
   </ul>
+  
   <!-- ============== End Sidebar ============== -->
