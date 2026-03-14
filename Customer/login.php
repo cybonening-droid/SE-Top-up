@@ -48,18 +48,22 @@ $error = "User not found";
 if(isset($_POST['register'])){
 
 $username = $_POST['reg_username'];
+$firstname = $_POST['firstname'];
+$lastname = $_POST['lastname'];
 $password = $_POST['reg_password'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
 
 $stmt = $conn->prepare(
-"INSERT INTO users (username,password,email,phone)
-VALUES (?,?,?,?)"
+"INSERT INTO users (username, firstname, lastname, password, email, phone)
+VALUES (?,?,?,?,?,?)"
 );
 
 $stmt->bind_param(
-"ssss",
+"ssssss",
 $username,
+$firstname,
+$lastname,
 $password,
 $email,
 $phone
@@ -155,7 +159,21 @@ $error = "Username already exists";
                 placeholder="Username"
                 required
                 >
+                <input
+                type="text"
+                name="firstname"
+                class="form-control mb-3"
+                placeholder="First Name"
+                required
+                >
 
+                <input
+                type="text"
+                name="lastname"
+                class="form-control mb-3"
+                placeholder="Last Name"
+                required
+                >
                 <input
                 type="email"
                 name="email"
@@ -178,7 +196,7 @@ $error = "Username already exists";
                 class="form-control mb-4"
                 placeholder="Phone"
                 >
-
+                
                 <button
                 name="register"
                 class="se-btn-green w-100">

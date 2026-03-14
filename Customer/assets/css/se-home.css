@@ -427,6 +427,12 @@ body{ font-family:"Poppins", sans-serif; }
   box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
 
+.se-btn-black:hover{
+  background:#222;
+  transform:translateY(-2px);
+  box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
 /* ===== PAYMENT CARD ===== */
 .se-payment-card{
   background:#fff;
@@ -604,4 +610,19 @@ background:#2f6294;
 .se-login-bg .se-container{
   position:relative;
   z-index:1;
+}
+.dropdown-menu{
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .2s ease, transform .2s ease;
+  display:block;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.dropdown-menu.show{
+  opacity:1;
+  transform:translateY(0);
+  visibility:visible;
+  pointer-events:auto;
 }

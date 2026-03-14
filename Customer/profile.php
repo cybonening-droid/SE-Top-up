@@ -3,15 +3,24 @@
 include "partials/header.php";
 
 /* mock data (เดี๋ยวค่อยดึง DB) */
-$user = [
-  "first_name" => "Punn",
-  "last_name" => "InwzA",
-  "email" => "Panyawatfaktim@email.com",
-  "phone" => "0616742970",
-  "username" => "PunnBigD_ata",
-  "role" => "Customer",
-  "id" => "s123456789"
-];
+require_once "../config/db.php";
+
+$user_id = $_SESSION['user_id'];
+
+$stmt = $conn->prepare("
+SELECT id, username, firstname, lastname, email, phone
+FROM users
+WHERE id = ?
+");
+
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+/* generate display user id */
+$user_display_id = "s" . str_pad($user['id'],9,"0",STR_PAD_LEFT);
 ?>
 
     <!-- PAGE HERO -->
@@ -33,11 +42,11 @@ $user = [
         </div>
 
         <h4 style="font-weight:900;">
-            <?= $user['username'] ?>
+            <?= htmlspecialchars($user['username']) ?>
         </h4>
 
         <p style="color:#666;">
-            <?= $user['email'] ?>
+            <?= htmlspecialchars($user['email']) ?>
         </p>
 
         </div>
@@ -54,14 +63,14 @@ $user = [
             <div class="mb-3">
             <label class="form-label">First Name</label>
             <input class="form-control"
-                    value="<?= $user['first_name'] ?>"
+                    value="<?= htmlspecialchars($user['firstname']) ?>"
                     readonly>
             </div>
 
             <div class="mb-3">
             <label class="form-label">Last Name</label>
             <input class="form-control"
-                    value="<?= $user['last_name'] ?>"
+                    value="<?= htmlspecialchars($user['lastname']) ?>"
                     readonly>
             </div>
 
@@ -82,14 +91,14 @@ $user = [
             <div class="mb-3">
             <label class="form-label">Email</label>
             <input class="form-control"
-                    value="<?= $user['email'] ?>"
+                    value="<?= htmlspecialchars($user['email']) ?>"
                     readonly>
             </div>
 
             <div class="mb-3">
             <label class="form-label">Phone Number</label>
             <input class="form-control"
-                    value="<?= $user['phone'] ?>"
+                    value="<?= htmlspecialchars($user['phone']) ?>"
                     readonly>
             </div>
 
@@ -110,7 +119,7 @@ $user = [
             <div class="mb-3">
             <label class="form-label">User ID</label>
             <input class="form-control"
-                    value="<?= $user['id'] ?>"
+                    value="<?= htmlspecialchars($user['id']) ?>"
                     readonly>
             </div>
 

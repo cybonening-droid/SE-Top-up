@@ -50,10 +50,28 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <a class="se-nav-item <?= $currentPage=='points.php'?'is-active':'' ?>" href="points.php">Points</a>
 
         <?php if(isset($_SESSION['user_id'])): ?>
-          <a class="se-nav-item" href="logout.php">Logout</a>
-        <?php else: ?>
+          <div class="dropdown">
+            <a class="se-nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              👤 <?= htmlspecialchars($_SESSION['username']) ?>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" href="profile.php">Profile</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="history.php">เติมเงิน</a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item text-danger" href="logout.php">Logout</a>
+              </li>
+            </ul>
+          </div>
+
+          <?php else: ?>
           <a class="se-nav-item se-nav-signin" href="login.php">SIGN IN</a>
-        <?php endif; ?>
+          <?php endif; ?>
       </nav>
     </div>
   </div>
